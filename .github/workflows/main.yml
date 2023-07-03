@@ -10,7 +10,7 @@ on:
 
 jobs:
   shared:
-    uses: https://github.com/Shanridhu/github-action-maven-example-start/blob/.github/workflows/main.yml@master
+    uses: Shanridhu/github-action-maven-example-start/.github/workflows/main.yml@master
     with:
       enable-code-scans: true
     secrets:
