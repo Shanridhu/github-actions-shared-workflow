@@ -1,0 +1,17 @@
+name: Test and release
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - '**.md'
+    branches:
+      - "master"
+
+jobs:
+  shared:
+    uses: github-action-maven-example-start/blob/master/.github/workflows/main.yml@master
+    with:
+      enable-code-scans: true
+    secrets:
+      ghcr-token: ${{ secrets.shared_secret }} 
