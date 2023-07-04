@@ -1,0 +1,47 @@
+name: Callerworkflow
+
+on: 
+  workflow_dispatch:
+    inputs: 
+      calledworkflow_name:
+        description: 'called workflow name for triggering'
+        required: true
+        default: 'calledworkflow'
+        
+      calledworkflow_github_account:
+        description: 'github accoutn owner'
+        required: true
+        default: 'shanridhu'
+        
+      calledworkflow_repo_github:
+        description: 'github repository name'
+        required: true
+        default: 'github-action-maven-example-start'        
+        
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    env:
+      pat_token: ${{secrets.PAT_TOKEN_GITHUB}}
+      parameter1: '42574587345'
+      parameter2: 'teststringwithoutspace'
+      
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+        
+      - name: Install Dependencies
+        run: |
+          cd: "$GITHUB_WORKSPACE/pythonscripts/"
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Trigger the workflow
+        run: |
+          cd: "$GITHUB_WORKSPACE/pythonscripts/"
+          python $GITHUB_WORKSPACE/pythonscripts/tirggerscripts.py  ${{env.pat_token}} ${{github.event.inputs.calledworkflow_name}} ${{env.parameter1}} ${{env.parameter2}}
