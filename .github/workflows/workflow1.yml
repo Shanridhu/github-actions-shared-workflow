@@ -1,52 +1,36 @@
-name: Workflow1
+name: caller workflow1 repo1
+# continuous integration 
 
 on:
-  workflow_dispatch:
-    inputs: 
-      workflow2_name:
-        description: 'Workflow2 Name for Triggering'
+ workflow_call:
+   secrets:
+      PAT_TOKEN_GITHUB:
         required: true
-        default: 'Workflow2'
-      
-      workflow2_github_account:
-        description: 'GitHub Account Owner'
-        required: true
-        default: 'Shanridhu'
-      
-      workflow2_repo_github:
-        description: 'GitHub Repository Name'
-        required: true
-        default: 'github-action-maven-example-start'
+ 
+env:
+  JAVA_VERSION: '11'                         # set this to the java version to use (e.g. '8', '11', '17')    
 
 jobs:
-
-  build:
+  build_and_test:
 
     runs-on: ubuntu-latest
-    env: 
-      pat_token: ${{ secrets.Workflow2_PAT_TOKEN_GITHUB }}
-      payload_Baseline_Number: "BSL_001"
-      payload_Baseline_Revision: "zsfdgsdbgngffdwdx1dxvv2"
-
 
     steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v3
+      
+    - name: Setup Java Sdk ${{ env.JAVA_VERSION }}
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+        
+    - name: Cache the Maven packages to speed up build
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+                
 
-
-      - uses: actions/checkout@v3
-
-      - name: setup python
-        uses: actions/setup-python@v2
-        with:
-         python-version: 3.8 #install the python needed
-         
-      - name: Install dependencies
-        run: |
-           cd "$GITHUB_WORKSPACE/pythonscripts/"
-           python -m pip install --upgrade pip
-           pip install -r requirements.txt
-          
-      - name: Trigger the Workflow
-        run: |
-         cd "$GITHUB_WORKSPACE/pythonscripts/"
-         python $GITHUB_WORKSPACE/pythonscripts/triggerscripts.py ${{ env.pat_token }}  ${{ github.event.inputs.workflow2_github_account}}  ${{ github.event.inputs.workflow2_repo_github}} ${{ github.event.inputs.workflow2_name}} ${{ env.payload_Baseline_Number }} ${{ env.payload_Baseline_Revision }}
-    
+    - name: Build project with Maven
+      run: mvn -B package --file pom.xml
