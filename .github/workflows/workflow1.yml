@@ -7,8 +7,8 @@ on:
       Workflow2_PAT_TOKEN_GITHUB:
         required: true
  
-env:
-  JAVA_VERSION: '17'                         # set this to the java version to use (e.g. '8', '11', '17')    
+#env:
+ # JAVA_VERSION: '17'                         # set this to the java version to use (e.g. '8', '11', '17')    
 
 jobs:
   build_and_test:
