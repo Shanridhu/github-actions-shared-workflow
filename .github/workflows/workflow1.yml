@@ -4,7 +4,7 @@ name: caller workflow1 repo1
 on:
  workflow_call:
    secrets:
-      PAT_TOKEN_GITHUB:
+      Workflow2_PAT_TOKEN_GITHUB:
         required: true
  
 env:
