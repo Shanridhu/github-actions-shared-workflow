@@ -1,5 +1,5 @@
 
-name: caller workflow1 repo1
+name: Reusable workflow
 # continuous integration 
 
 on:
@@ -9,7 +9,7 @@ on:
         required: true
  
 env:
-  JAVA_VERSION: '17'                         # set this to the java version to use (e.g. '8', '11', '17')    
+  JAVA_VERSION: '17'                     
 
 jobs:
   build_and_test:
