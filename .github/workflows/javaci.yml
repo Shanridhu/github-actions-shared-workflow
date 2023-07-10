@@ -3,10 +3,13 @@ name: javaci
 # continuous integration 
 
 on:
- workflow_call:
-   secrets:
-      Workflow2_PAT_TOKEN_GITHUB:
-        required: true
+ workflow_run:
+   workflows: ["caller workflow"]
+   types:
+    - completed
+#   secrets:
+ #     Workflow2_PAT_TOKEN_GITHUB:
+  #      required: true
  
 env:
   JAVA_VERSION: '17'                     
@@ -16,7 +19,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
+
+  steps:
+    - name: Print Workflow File Name
+      run: echo "Workflow File: ${{ github.event.workflow_run.inputs.javaci.yml }}"   
+      
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v3
       
