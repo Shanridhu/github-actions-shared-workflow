@@ -3,6 +3,10 @@ name: reusable workflow
 
 on:
  workflow_call:
+   inputs:
+     env:
+      required: true
+      type: string 
    secrets:
       Workflow2_PAT_TOKEN_GITHUB:
         required: true
