@@ -4,10 +4,10 @@ name: PostgreSQL service example
 
 on:
  workflow_call:
-   inputs:
-     filename:
-      required: true
-      type: string
+   #inputs:
+    # filename:
+     # required: true
+      #type: string
       
    secrets:
       Workflow2_PAT_TOKEN_GITHUB:
