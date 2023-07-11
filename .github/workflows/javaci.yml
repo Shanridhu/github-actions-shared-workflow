@@ -4,7 +4,7 @@ name: reusable workflow
 on:
  workflow_call:
    inputs:
-     env:
+     filename:
       required: true
       type: string 
    secrets:
