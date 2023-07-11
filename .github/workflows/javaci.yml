@@ -1,29 +1,22 @@
-
-name: javaci
+name: reusable workflow
 # continuous integration 
 
 on:
- workflow_run:
-   workflows: ["caller workflow"]
-   types:
-    - completed
-#   secrets:
- #     Workflow2_PAT_TOKEN_GITHUB:
-  #      required: true
+ workflow_call:
+   secrets:
+      Workflow2_PAT_TOKEN_GITHUB:
+        required: true
+
  
 env:
-  JAVA_VERSION: '17'                     
+  JAVA_VERSION: '17'                       
 
 jobs:
   build_and_test:
 
     runs-on: ubuntu-latest
 
-
-  steps:
-    - name: Print Workflow File Name
-      run: echo "Workflow File: ${{ github.event.workflow_run.inputs.javaci.yml }}"   
-      
+    steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v3
       
@@ -41,4 +34,4 @@ jobs:
                 
 
     - name: Build project with Maven
-      run: mvn -B package --file pom.xml	  
+      run: mvn -B package --file pom.xml	  	  
