@@ -1,10 +1,10 @@
-name: Build, Scan, Publish
+name: database ci
 
 on:
-  workflow_dispatch:
-  #push:
-    #branches:
-      #- master
+ workflow_call:
+   secrets:
+      Workflow2_PAT_TOKEN_GITHUB:
+        required: true
 jobs:
   build:
     name: Build, Scan, Publish
