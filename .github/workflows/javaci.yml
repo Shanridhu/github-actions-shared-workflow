@@ -1,12 +1,8 @@
-name: reusable workflow
+name: javaci
 # continuous integration 
 
 on:
  workflow_call:
-   #inputs:
-    # filename:
-     # required: true
-      #type: string 
    secrets:
       Workflow2_PAT_TOKEN_GITHUB:
         required: true
