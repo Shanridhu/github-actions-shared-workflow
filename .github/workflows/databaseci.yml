@@ -9,9 +9,9 @@ jobs:
   build:
     name: Build, Scan, Publish
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    #permissions:
+     # contents: read
+      #packages: write
       
     steps:
       - name: Checkout from Repo
