@@ -34,4 +34,11 @@ jobs:
                 
 
     - name: Build project with Maven
-      run: mvn -B package --file pom.xml	  	  
+      run: mvn -B package --file pom.xml
+      
+    - name: SonarQube Scan
+      uses: kitabisa/sonarqube-action@v1.2.0
+      with:
+        host: ${{ secrets.SONARQUBE_HOST }}
+        login: ${{ secrets.SONARQUBE_TOKEN }}
+       
